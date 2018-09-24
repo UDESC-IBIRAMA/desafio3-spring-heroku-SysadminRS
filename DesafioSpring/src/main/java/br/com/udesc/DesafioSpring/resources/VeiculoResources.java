@@ -25,12 +25,12 @@ public class VeiculoResources {
 	@Autowired
 	private VeiculoRepository vr;
 	
-//	@GetMapping(produces="application/json")
-//	public @ResponseBody Veiculo testeVeiculo() {
-//		return new Veiculo(1L, "FORD", "FOCUS", "BRANCO", 5000, "2.0", "CARRO");
-//	}
+	@GetMapping(value = "/teste", produces="application/json")
+	public @ResponseBody Veiculo testeVeiculo() {
+		return new Veiculo(1L, "FORD", "FOCUS", "BRANCO", 5000, "2.0", "CARRO");
+	}
 	
-	@GetMapping("/lista")
+	@GetMapping(value = "/lista")
     public @ResponseBody Iterable<Veiculo> listaVeiculos() {
 		Iterable<Veiculo> listaVeiculos = vr.findAll();
 		return listaVeiculos;
@@ -42,7 +42,7 @@ public class VeiculoResources {
 //		return verifica;
 //	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}")
 	public Veiculo buscaId(@PathVariable Long id) throws Exception {
      Optional<Veiculo> verifica = vr.findById(id);
 
@@ -53,12 +53,12 @@ public class VeiculoResources {
 	}
 	
 	
-	@PostMapping("/adiciona")
+	@PostMapping(value = "/adiciona")
 	public Veiculo cadastraVeiculo(@RequestBody @Valid Veiculo oVeiculo) {
 		return vr.save(oVeiculo);
 	}
 	
-	@PutMapping(value="/modifica/{id}")
+	@PutMapping(value = "/modifica/{id}")
 	public ResponseEntity<Veiculo> modificaVeiculo(@PathVariable("id") Long id, @RequestBody Veiculo oVeiculo) {
 		Optional<Veiculo> veiculoInfo = vr.findById(id);
 	
@@ -74,7 +74,6 @@ public class VeiculoResources {
 			
 			//altera os dados
 			vr.save(veiculoAtual);
-			
 			return ResponseEntity.ok(veiculoAtual);
 		}else {
 			return ResponseEntity.notFound().build();
@@ -83,8 +82,7 @@ public class VeiculoResources {
 		
 	}
 	
-	
-	@DeleteMapping("/deleta")
+	@DeleteMapping(value = "/deleta")
 	public Veiculo deletaVeiculo(@RequestBody Veiculo oVeiculo) {
 		vr.delete(oVeiculo);
 		return oVeiculo;

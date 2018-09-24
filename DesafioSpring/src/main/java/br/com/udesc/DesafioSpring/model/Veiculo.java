@@ -5,18 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
-//@NamedQueries({
-//    @NamedQuery(name = "Veiculo.buscaTipo",
-//            query = "select v from Veiculo v where v.tipo = :tipo")
-//    ,@NamedQuery(name = "veiculo.montadora",
-//            query = "select v from Veiculo v where v.montadora = :montadora")
-//    ,@NamedQuery(name = "veiculo.motor",
-//            query = "select v from Veiculo v where v.motor = :motor")
-//    ,@NamedQuery(name = "veiculo.filtros",
-//            query = "select v from Veiculo v where v.tipo = :tipo and v.montadora = :montadora and v.km > :km")})
-
 public class Veiculo {
 	
 	public Veiculo() {
@@ -32,11 +24,14 @@ public class Veiculo {
         this.tipo = tipo;
     }
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //private static final long serialVersionUID = 1L;
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
 
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+    
     private String montadora;
     private String modelo;
     private String cor;
