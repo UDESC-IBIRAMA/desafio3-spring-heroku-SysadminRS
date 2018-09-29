@@ -1,12 +1,12 @@
-package br.com.udesc.DesafioSpring;
+package br.com.udesc.Desafio03Robson;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DesafioSpringApplication {
+public class Desafio03RobsonApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DesafioSpringApplication.class, args);
+		SpringApplication.run(Desafio03RobsonApplication.class, args);
 	}
 }
