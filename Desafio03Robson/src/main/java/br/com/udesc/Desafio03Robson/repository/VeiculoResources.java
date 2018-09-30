@@ -21,6 +21,7 @@ import br.com.udesc.Desafio03Robson.resource.VeiculoRepository;
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoResources {
+	
 	@Autowired
 	private VeiculoRepository vr;
 
