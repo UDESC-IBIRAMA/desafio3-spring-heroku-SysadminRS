@@ -2,7 +2,7 @@ package br.com.udesc.Desafio03Robson.repository;
 
 import java.util.Optional;
 import javax.validation.Valid;
-
+//import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +20,7 @@ import br.com.udesc.Desafio03Robson.resource.VeiculoRepository;
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoResources {
-	
+
 	@Autowired
 	private VeiculoRepository vr;
 
@@ -38,14 +38,21 @@ public class VeiculoResources {
 	@GetMapping(value = "/{id}")
 	public Veiculo buscaId(@PathVariable Long id) throws Exception {
 		Optional<Veiculo> verifica = vr.findById(id);
-
 		if (!verifica.isPresent()) {
 			throw new Exception("Id - " + id + " Inexistente!");
 		}
-
 		return verifica.get();
 	}
 
+/*
+	 @GetMapping(value = "/{id}") public ResponseEntity<Veiculo> buscarPorId(@PathVariable Long id) { 
+		 Veiculo contato = vr.getOne(id); 
+		 if(contato == null) { 
+		 	return ResponseEntity.notFound().build(); 
+		 } 
+		 return ResponseEntity.ok(contato); 
+	 }
+*/
 	@PostMapping(value = "/adiciona")
 	public Veiculo cadastraVeiculo(@RequestBody @Valid Veiculo oVeiculo) {
 		return vr.save(oVeiculo);
@@ -71,12 +78,35 @@ public class VeiculoResources {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-
 	}
-
+/*
+	@PutMapping(value = "/modifica/{id}")
+	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @Valid @RequestBody Veiculo contato) {
+		Veiculo existente = vr.getOne(id);
+		if (existente == null) {
+			return ResponseEntity.notFound().build();
+		}
+		BeanUtils.copyProperties(contato, existente, "id");
+		existente = vr.save(existente);
+		return ResponseEntity.ok(existente);
+	}
+*/
+/*
 	@DeleteMapping(value = "/deleta")
 	public Veiculo deletaVeiculo(@RequestBody Veiculo oVeiculo) {
 		vr.delete(oVeiculo);
 		return oVeiculo;
 	}
+*/
+	
+	@DeleteMapping("/deleta/{id}")
+	public ResponseEntity<Void> remover(@PathVariable Long id) {
+		Veiculo contato = vr.getOne(id);
+		if (contato == null) {
+			return ResponseEntity.notFound().build();
+		}
+		vr.delete(contato);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
