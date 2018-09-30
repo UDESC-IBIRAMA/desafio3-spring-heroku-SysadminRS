@@ -1,10 +1,11 @@
 package br.com.udesc.Desafio03Robson.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity
 public class Veiculo {
 
 	public Veiculo() {
@@ -20,7 +21,7 @@ public class Veiculo {
 		this.tipo = tipo;
 	}
 
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "increment")
