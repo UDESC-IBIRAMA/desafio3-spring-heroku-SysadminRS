@@ -101,14 +101,13 @@ public class VeiculoResources {
 	
 	//só por Id
 	@DeleteMapping(value = "/deleta/{id}")
-	public ResponseEntity<Veiculo> removerVeiculo(@PathVariable Long id) {
+	public ResponseEntity<Void> removerVeiculo(@PathVariable Long id) {
 		Veiculo existe = vr.getOne(id);
 		if (existe == null) {
 			return ResponseEntity.notFound().build();
 		} else
 			vr.delete(existe);
-			//return ResponseEntity.noContent().build();
-			return ResponseEntity.ok(existe);
+			return ResponseEntity.noContent().build();	
 	}
 	
 }
