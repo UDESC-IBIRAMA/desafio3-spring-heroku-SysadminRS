@@ -81,32 +81,34 @@ public class VeiculoResources {
 	}
 /*
 	@PutMapping(value = "/modifica/{id}")
-	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @Valid @RequestBody Veiculo contato) {
+	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @Valid @RequestBody Veiculo oVeiculo) {
 		Veiculo existente = vr.getOne(id);
 		if (existente == null) {
 			return ResponseEntity.notFound().build();
 		}
-		BeanUtils.copyProperties(contato, existente, "id");
+		BeanUtils.copyProperties(oVeiculo, existente, "id");
 		existente = vr.save(existente);
 		return ResponseEntity.ok(existente);
 	}
 */
-/*
+	
+	//só por objeto
 	@DeleteMapping(value = "/deleta")
 	public Veiculo deletaVeiculo(@RequestBody Veiculo oVeiculo) {
 		vr.delete(oVeiculo);
 		return oVeiculo;
 	}
-*/
 	
-	@DeleteMapping("/deleta/{id}")
-	public ResponseEntity<Void> remover(@PathVariable Long id) {
-		Veiculo contato = vr.getOne(id);
-		if (contato == null) {
+	//só por Id
+	@DeleteMapping(value = "/deleta/{id}")
+	public ResponseEntity<Veiculo> removerVeiculo(@PathVariable Long id) {
+		Veiculo existe = vr.getOne(id);
+		if (existe == null) {
 			return ResponseEntity.notFound().build();
-		}
-		vr.delete(contato);
-		return ResponseEntity.noContent().build();
+		} else
+			vr.delete(existe);
+			//return ResponseEntity.noContent().build();
+			return ResponseEntity.ok(existe);
 	}
 	
 }
