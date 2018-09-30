@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.udesc.Desafio03Robson.model.Veiculo;
 import br.com.udesc.Desafio03Robson.resource.VeiculoRepository;
 
+
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoResources {
@@ -53,6 +54,36 @@ public class VeiculoResources {
 		 return ResponseEntity.ok(contato); 
 	 }
 */
+	
+	@GetMapping(value = "/tipo/{tipo}")
+    public @ResponseBody
+    Iterable<Veiculo> listaPorTipo(@PathVariable String tipo) {
+        Iterable<Veiculo> listaVeiculos = vr.tiposDeVeiculo(tipo);
+        return listaVeiculos;
+    }
+    
+    @GetMapping(value = "/montadora/{montadora}")
+    public @ResponseBody
+    Iterable<Veiculo> listaPorMontadora(@PathVariable String montadora) {
+        Iterable<Veiculo> listaVeiculos = vr.montadora(montadora);
+        return listaVeiculos;
+    }
+    
+    @GetMapping(value = "/motor/{motor}")
+    public @ResponseBody
+    Iterable<Veiculo> listaPorMotor(@PathVariable String motor) {
+        Iterable<Veiculo> listaVeiculos = vr.motor(motor);
+        return listaVeiculos;
+    }
+    
+    @GetMapping(value = "/filtros/{tipo}/{montadora}/{km}")
+    public @ResponseBody
+    Iterable<Veiculo> filtros(@PathVariable String tipo, @PathVariable String montadora, @PathVariable int km) {
+        Iterable<Veiculo> listaVeiculos = vr.filtros(tipo, montadora, km);
+        return listaVeiculos;
+    }
+	
+	
 	@PostMapping(value = "/adiciona")
 	public Veiculo cadastraVeiculo(@RequestBody @Valid Veiculo oVeiculo) {
 		return vr.save(oVeiculo);

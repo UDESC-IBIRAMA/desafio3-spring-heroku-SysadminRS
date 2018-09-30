@@ -3,9 +3,15 @@ package br.com.udesc.Desafio03Robson.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.NamedQueries;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@NamedQueries({ @NamedQuery(name = "Veiculo.tiposDeVeiculo", query = "select v from Veiculo v where v.tipo = ?1"),
+		@NamedQuery(name = "Veiculo.montadora", query = "select v from Veiculo v where v.montadora = ?1"),
+		@NamedQuery(name = "Veiculo.motor", query = "select v from Veiculo v where v.motor = ?1"),
+		@NamedQuery(name = "Veiculo.filtros", query = "select v from Veiculo v where v.tipo = ?1 and v.montadora = ?2 and v.km > ?3") })
 public class Veiculo {
 
 	public Veiculo() {
@@ -21,7 +27,7 @@ public class Veiculo {
 		this.tipo = tipo;
 	}
 
-	//private static final long serialVersionUID = 1L;
+	// private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "increment")
